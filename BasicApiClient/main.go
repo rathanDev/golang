@@ -8,8 +8,27 @@ import (
     "os"
 )
 
+const baseUrl string = "http://localhost:8080"
+var version string = "/v1";
+const accountUrl string = "/organisation/accounts"
+
+func getUrl() string {
+
+	version = "/v1"
+
+	fmt.Printf("BaseUrl is %v", baseUrl)
+
+	var url = baseUrl + version + accountUrl
+	fmt.Println(url)
+
+	return url
+}
+
 func main() {
-    response, err := http.Get("http://pokeapi.co/api/v2/pokedex/kanto/")
+
+    url := getUrl()
+
+    response, err := http.Get(url)
 
     if err != nil {
         fmt.Print(err.Error())
