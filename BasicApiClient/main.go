@@ -7,6 +7,7 @@ import (
     "net/http"
     "os"
     "api-client/helper"
+    "api-client/model"
 )
 
 func main() {
@@ -25,5 +26,11 @@ func main() {
         log.Fatal(err)
     }
     fmt.Println(string(responseData))
+
+    fmt.Println("")
+
+    accountData := model.AccountData {ID : "some-id", OrganisationID: "org-id"}
+    fmt.Println(accountData)
+
 
 }
