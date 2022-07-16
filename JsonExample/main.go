@@ -17,4 +17,10 @@ func main() {
 	fmt.Printf("Species: %s, Description: %s", bird.Species, bird.Description)
 	fmt.Println()
 	fmt.Println("bird => " , bird)
+
+
+	birdsJson := `[{"species": "pigeon","description": "likes to perch on rocks"}, {"species": "mina","description": "likes to live with people"}]`
+	var birds []Bird
+	json.Unmarshal([]byte(birdsJson), &birds)
+	fmt.Println("birds => ", birds)
 }
