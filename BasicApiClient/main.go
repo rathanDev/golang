@@ -26,20 +26,27 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(string(responseData))
+	//fmt.Println(string(responseData))
+	fmt.Println("responseData => ", string(responseData))
 
 	fmt.Println()
 
-	accountData := model.AccountData{ID: "someId", OrganisationID: "orgId"}
-	fmt.Println(accountData)
+	var apiResponse model.ApiResponse
+	json.Unmarshal([]byte(string(responseData)), &apiResponse)
+	fmt.Println("apiRespone => ", apiResponse)
+	fmt.Printf("apiResponse.Data: %s", apiResponse.Data)
 
-	fmt.Println("")
+	fmt.Println()
 
-    jsonstr := `[{"GBP":657.54},{"USD":123.45}]`
-    fmt.Println(jsonstr)
+	// var accounts []AccountData
+	accounts := apiResponse.Data
+	fmt.Println("accounts => ", &accounts)
 
-    ps := []model.Price{}
-    json.Unmarshal([]byte(jsonstr), &ps)
-    fmt.Println(ps)
+	fmt.Println("\n")
+
+	for id, organisation_id := range accounts {
+		// Each value is an interface{} type, that is type asserted as a string
+		fmt.Println(id, organisation_id)
+	}
 
 }

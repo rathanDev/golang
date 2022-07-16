@@ -5,11 +5,11 @@ package model
 // more information about fields.
 
 type AccountData struct {
-	Attributes     *AccountAttributes `json:"attributes,omitempty"`
-	ID             string             `json:"id,omitempty"`
-	OrganisationID string             `json:"organisation_id,omitempty"`
-	Type           string             `json:"type,omitempty"`
-	Version        *int64             `json:"version,omitempty"`
+	Attributes     []AccountAttributes `json:"attributes,omitempty"`
+	ID             string              `json:"id,omitempty"`
+	OrganisationID string              `json:"organisation_id,omitempty"`
+	Type           string              `json:"type,omitempty"`
+	Version        *int64              `json:"version,omitempty"`
 }
 
 type AccountAttributes struct {
@@ -29,3 +29,43 @@ type AccountAttributes struct {
 	Status                  *string  `json:"status,omitempty"`
 	Switched                *bool    `json:"switched,omitempty"`
 }
+
+type Links struct {
+	First string
+	Last  string
+	Self  string
+}
+
+type ApiResponse struct {
+	Data  []AccountData `json:"data,omitempty"`
+	Links Links
+}
+
+// {
+// 	"data": [
+// 	  {
+// 		"attributes": {
+// 		  "account_classification": "class1",
+// 		  "account_matching_opt_out": true,
+// 		  "account_number": "1O001",
+// 		  "alternative_names": null,
+// 		  "bank_id": "5O001",
+// 		  "country": "Singapore",
+// 		  "name": [
+// 			"Jana"
+// 		  ]
+// 		},
+// 		"created_on": "2022-01-03T00:00:00.000Z",
+// 		"id": "f50fc252-03f3-11ed-a0bc-0242ac130101",
+// 		"modified_on": "2022-02-03T00:00:00.000Z",
+// 		"organisation_id": "f50fc252-03f3-11ed-a0bc-0242ac130201",
+// 		"type": "accounts",
+// 		"version": 1
+// 	  }
+// 	],
+// 	"links": {
+// 	  "first": "/v1/organisation/accounts?page%5Bnumber%5D=first",
+// 	  "last": "/v1/organisation/accounts?page%5Bnumber%5D=last",
+// 	  "self": "/v1/organisation/accounts"
+// 	}
+// }
