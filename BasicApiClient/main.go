@@ -3,6 +3,7 @@ package main
 import (
 	"api-client/helper"
 	"api-client/model"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -27,9 +28,18 @@ func main() {
 	}
 	fmt.Println(string(responseData))
 
-	fmt.Println("")
+	fmt.Println()
 
 	accountData := model.AccountData{ID: "someId", OrganisationID: "orgId"}
 	fmt.Println(accountData)
+
+	fmt.Println("")
+
+    jsonstr := `[{"GBP":657.54},{"USD":123.45}]`
+    fmt.Println(jsonstr)
+
+    ps := []model.Price{}
+    json.Unmarshal([]byte(jsonstr), &ps)
+    fmt.Println(ps)
 
 }
