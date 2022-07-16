@@ -1,4 +1,4 @@
-package main
+package helper
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ const baseUrl string = "http://localhost:8080"
 var version string = "/v1";
 const accountUrl string = "/organisation/accounts"
 
-func getUrl() string {
+func GetUrl() string {
 
 	version = "/v1"
 

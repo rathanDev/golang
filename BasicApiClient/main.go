@@ -6,11 +6,12 @@ import (
     "log"
     "net/http"
     "os"
+    "api-client/helper"
 )
 
 func main() {
 
-    url := getUrl()
+    url := helper.GetUrl()
 
     response, err := http.Get(url)
 
