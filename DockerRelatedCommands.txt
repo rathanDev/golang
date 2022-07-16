@@ -8,7 +8,7 @@ docker-compose down
 docker ps 
     ID 
 
-docker exec it <ID> bash 
+docker exec -it <ID> bash 
 
 psql 
 
@@ -39,3 +39,9 @@ delete * from "Account";
 
 select * from "Account";
 
+# ---------------------------------------------------------------------------- #
+# Golang commands 
+
+go run main.go helper.go 
+
+# ---------------------------------------------------------------------------- #
