@@ -15,4 +15,6 @@ func main() {
 	var bird Bird
 	json.Unmarshal([]byte(birdJson), &bird)
 	fmt.Printf("Species: %s, Description: %s", bird.Species, bird.Description)
+	fmt.Println()
+	fmt.Println("bird => " , bird)
 }
