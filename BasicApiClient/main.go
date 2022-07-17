@@ -6,6 +6,12 @@ import (
 )
 
 func main() {
-    accounts := operation.Fetch()
+	fmt.Println("Fetch")
+	accounts := operation.Fetch()
 	fmt.Println(accounts)
+
+	fmt.Println("\n\nFetchWhole")
+	//var apiResponse model.ApiResponse
+	apiResponse := operation.FetchWhole()
+	fmt.Println(apiResponse)
 }

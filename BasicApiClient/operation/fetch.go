@@ -16,6 +16,28 @@ func Greet() string {
 	return greeting
 }
 
+func FetchWhole() model.ApiResponse {
+
+	url := config.GetAccountUrl()
+
+	response, err := http.Get(url)
+
+	if err != nil {
+		fmt.Print(err.Error())
+		os.Exit(1)
+	}
+
+	responseData, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var apiResponse model.ApiResponse
+	json.Unmarshal([]byte(string(responseData)), &apiResponse)
+
+	return apiResponse
+}
+
 func Fetch() []model.Account {
 
 	url := config.GetAccountUrl()
@@ -59,7 +81,8 @@ func Fetch() []model.Account {
 	return accounts
 }
 
-func printAccounts(accountDataList []model.AccountData) {
+func printAccountDataList(accountDataList []model.AccountData) {
+	fmt.Println("Print AccountData List")
 	for i, val := range accountDataList {
 		fmt.Println("i =>", i)
 
