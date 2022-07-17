@@ -49,9 +49,7 @@ func FetchMapped() []model.Account {
 func mapAccounts(accountDataList []model.AccountData) []model.Account {
 	var accounts []model.Account
 
-	for i, accountData := range accountDataList {
-		fmt.Println("i =>", i)
-
+	for _, accountData := range accountDataList {
 		var account model.Account
 		account.ID = accountData.ID
 		account.OrganisationID = accountData.OrganisationID
