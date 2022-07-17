@@ -5,7 +5,7 @@ package model
 // more information about fields.
 
 type ApiResponse struct {
-	Data  []*AccountData `json:"data,omitempty"`
+	Accounts  []AccountData `json:"data,omitempty"`
 	Links Links
 }
 
