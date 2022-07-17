@@ -17,6 +17,6 @@ func main() {
 
 	// type Account a
 
-	a := model.Account{"id1", "name1"}
+	a := model.Account{"601", "DBS"}
 	fmt.Println(a)
 }

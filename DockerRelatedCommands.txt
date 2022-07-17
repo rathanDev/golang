@@ -35,7 +35,7 @@ insert into "Account"(id, organisation_id, version, is_deleted, is_locked, creat
 
 
 
-delete * from "Account";
+delete from "Account";
 
 select * from "Account";
 
