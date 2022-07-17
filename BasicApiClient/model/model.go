@@ -4,12 +4,17 @@ package model
 // See https://api-docs.form3.tech/api.html#organisation-accounts for
 // more information about fields.
 
+type ApiResponse struct {
+	Data  []*AccountData `json:"data,omitempty"`
+	Links Links
+}
+
 type AccountData struct {
-	Attributes     []AccountAttributes `json:"attributes,omitempty"`
-	ID             string              `json:"id,omitempty"`
-	OrganisationID string              `json:"organisation_id,omitempty"`
-	Type           string              `json:"type,omitempty"`
-	Version        *int64              `json:"version,omitempty"`
+	Attributes     AccountAttributes `json:"attributes,omitempty"`
+	ID             string            `json:"id,omitempty"`
+	OrganisationID string            `json:"organisation_id,omitempty"`
+	Type           string            `json:"type,omitempty"`
+	Version        *int64            `json:"version,omitempty"`
 }
 
 type AccountAttributes struct {
@@ -34,11 +39,6 @@ type Links struct {
 	First string
 	Last  string
 	Self  string
-}
-
-type ApiResponse struct {
-	Data  []AccountData `json:"data,omitempty"`
-	Links Links
 }
 
 // {

@@ -31,27 +31,29 @@ func Fetch() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//fmt.Println(string(responseData))
 	fmt.Println("responseData => ", string(responseData))
 
 	fmt.Println()
 
 	var apiResponse model.ApiResponse
 	json.Unmarshal([]byte(string(responseData)), &apiResponse)
-	fmt.Println("apiRespone => ", apiResponse)
+	fmt.Println("apiRespone => ", apiResponse, "\n")
 	fmt.Printf("apiResponse.Data: %s", apiResponse.Data)
 
 	fmt.Println()
 
 	// var accounts []AccountData
 	accounts := apiResponse.Data
+	fmt.Println("\n")
 	fmt.Println("accounts => ", &accounts)
 
-	fmt.Println("\n")
 
-	for id, organisation_id := range accounts {
+	// for id, organisation_id := range accounts {
+	for ID := range accounts {
 		// Each value is an interface{} type, that is type asserted as a string
-		fmt.Println(id, organisation_id)
+		// fmt.Println(id, organisation_id)
+		fmt.Println("id =>", ID)
 	}
 
+	// return accounts
 }
