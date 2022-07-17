@@ -16,15 +16,7 @@ func Greet() string {
 	return greeting
 }
 
-func MyAccount() model.Account {
-	var account model.Account
-	account.Id = "001"
-	account.Name = "Jana"
-	account.Country = "Singapore"
-	return account
-}
-
-func Fetch() model.Account { //model.ApiResponse.Accounts {
+func Fetch() []model.Account {
 
 	url := helper.GetUrl()
 
@@ -39,30 +31,32 @@ func Fetch() model.Account { //model.ApiResponse.Accounts {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("responseData => ", string(responseData))
-
-	fmt.Println()
 
 	var apiResponse model.ApiResponse
 	json.Unmarshal([]byte(string(responseData)), &apiResponse)
-	fmt.Println("apiRespone => ", apiResponse, "\n")
-	fmt.Printf("apiResponse.AccountDataList: %s", apiResponse.AccountDataList)
-
-	fmt.Println()
 
 	accountDataList := apiResponse.AccountDataList
-	fmt.Println("\n")
-	fmt.Println("accountDataList => ", accountDataList)
 
-	printAccounts(accountDataList)
+	var accounts []model.Account
 
-	var account model.Account
-	account.Id = "001"
-	account.Name = "Jana"
-	account.Country = "Singapore"
-	return account
+	for i, accountData := range accountDataList {
+		fmt.Println("i =>", i)
 
-	return account
+		var account model.Account
+		account.ID = accountData.ID
+		account.OrganisationID = accountData.OrganisationID
+		account.Type = accountData.Type
+
+		account.AccountNumber = accountData.Attributes.AccountNumber
+		account.BankID = accountData.Attributes.BankID
+		account.BankIDCode = accountData.Attributes.BankIDCode
+		account.Country = *accountData.Attributes.Country
+		account.Name = accountData.Attributes.Name
+
+		accounts = append(accounts, account)
+	}
+
+	return accounts
 }
 
 func printAccounts(accountDataList []model.AccountData) {

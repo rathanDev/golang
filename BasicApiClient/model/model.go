@@ -1,14 +1,20 @@
 package model
 
 type Account struct {
-	Id      string
-	Name    string
-	Country string
+	ID             string
+	OrganisationID string
+	Type           string
+
+	AccountNumber string
+	BankID        string
+	BankIDCode    string
+	Country       string
+	Name          []string
 }
 
 type ApiResponse struct {
 	AccountDataList []AccountData `json:"data,omitempty"`
-	Links    Links
+	Links           Links
 }
 
 type AccountData struct {
