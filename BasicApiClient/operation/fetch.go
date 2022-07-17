@@ -16,7 +16,7 @@ func Greet() string {
 	return greeting
 }
 
-func Fetch() {
+func Fetch() { //model.ApiResponse.Accounts {
 
 	url := helper.GetUrl()
 
@@ -46,14 +46,15 @@ func Fetch() {
 	fmt.Println("\n")
 	fmt.Println("accounts => ", accounts)
 
-	for i, val := range apiResponse.Accounts {
+	for i, val := range accounts {
 		fmt.Println("i =>", i)
-		fmt.Println("value =>", val)
 
+		fmt.Println("Attributes =>", *val.Attributes)
 		fmt.Println("ID =>", val.ID)
 		fmt.Println("OrganisationID =>", val.OrganisationID)
 		fmt.Println("Type =>", val.Type)
-		fmt.Println("Version =>", val.Version)
+		fmt.Println("Version =>", *val.Version)
 	}
-	
+
+	// return accounts
 }

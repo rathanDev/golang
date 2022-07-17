@@ -5,16 +5,16 @@ package model
 // more information about fields.
 
 type ApiResponse struct {
-	Accounts  []AccountData `json:"data,omitempty"`
-	Links Links
+	Accounts []AccountData `json:"data,omitempty"`
+	Links    Links
 }
 
 type AccountData struct {
-	Attributes     AccountAttributes `json:"attributes,omitempty"`
-	ID             string            `json:"id,omitempty"`
-	OrganisationID string            `json:"organisation_id,omitempty"`
-	Type           string            `json:"type,omitempty"`
-	Version        *int64            `json:"version,omitempty"`
+	Attributes     *AccountAttributes `json:"attributes,omitempty"`
+	ID             string             `json:"id,omitempty"`
+	OrganisationID string             `json:"organisation_id,omitempty"`
+	Type           string             `json:"type,omitempty"`
+	Version        *int64             `json:"version,omitempty"`
 }
 
 type AccountAttributes struct {
