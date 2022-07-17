@@ -1,7 +1,7 @@
 package operation
 
 import (
-	"api-client/helper"
+	"api-client/config"
 	"api-client/model"
 	"encoding/json"
 	"fmt"
@@ -18,7 +18,7 @@ func Greet() string {
 
 func Fetch() []model.Account {
 
-	url := helper.GetUrl()
+	url := config.GetAccountUrl()
 
 	response, err := http.Get(url)
 
