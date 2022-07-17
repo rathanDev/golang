@@ -11,54 +11,42 @@ import (
 	"os"
 )
 
-func Greet() string {
-	var greeting = "Fetch operation says Hi"
-	return greeting
-}
-
-func FetchWhole() model.ApiResponse {
-
+func Fetch() model.ApiResponse {
 	url := config.GetAccountUrl()
-
 	response, err := http.Get(url)
-
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-
 	responseData, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	var apiResponse model.ApiResponse
 	json.Unmarshal([]byte(string(responseData)), &apiResponse)
-
 	return apiResponse
 }
 
-func Fetch() []model.Account {
-
+func FetchMapped() []model.Account {
 	url := config.GetAccountUrl()
-
 	response, err := http.Get(url)
-
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
 	}
-
 	responseData, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	var apiResponse model.ApiResponse
 	json.Unmarshal([]byte(string(responseData)), &apiResponse)
-
 	accountDataList := apiResponse.AccountDataList
+	var accounts []model.Account
+	accounts = mapAccounts(accountDataList)
+	return accounts
+}
 
+func mapAccounts(accountDataList []model.AccountData) []model.Account {
 	var accounts []model.Account
 
 	for i, accountData := range accountDataList {

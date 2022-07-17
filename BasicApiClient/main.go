@@ -7,11 +7,10 @@ import (
 
 func main() {
 	fmt.Println("Fetch")
-	accounts := operation.Fetch()
-	fmt.Println(accounts)
-
-	fmt.Println("\n\nFetchWhole")
-	//var apiResponse model.ApiResponse
-	apiResponse := operation.FetchWhole()
+	apiResponse := operation.Fetch()
 	fmt.Println(apiResponse)
+
+	fmt.Println("\n\nFetchMapped")
+	accounts := operation.FetchMapped()
+	fmt.Println(accounts)
 }
