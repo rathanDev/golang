@@ -1,11 +1,13 @@
 package model
 
-// Account represents an account in the form3 org section.
-// See https://api-docs.form3.tech/api.html#organisation-accounts for
-// more information about fields.
+type Account struct {
+	Id      string
+	Name    string
+	Country string
+}
 
 type ApiResponse struct {
-	Accounts []AccountData `json:"data,omitempty"`
+	AccountDataList []AccountData `json:"data,omitempty"`
 	Links    Links
 }
 

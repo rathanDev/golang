@@ -16,7 +16,15 @@ func Greet() string {
 	return greeting
 }
 
-func Fetch() { //model.ApiResponse.Accounts {
+func MyAccount() model.Account {
+	var account model.Account
+	account.Id = "001"
+	account.Name = "Jana"
+	account.Country = "Singapore"
+	return account
+}
+
+func Fetch() model.Account { //model.ApiResponse.Accounts {
 
 	url := helper.GetUrl()
 
@@ -38,15 +46,27 @@ func Fetch() { //model.ApiResponse.Accounts {
 	var apiResponse model.ApiResponse
 	json.Unmarshal([]byte(string(responseData)), &apiResponse)
 	fmt.Println("apiRespone => ", apiResponse, "\n")
-	fmt.Printf("apiResponse.Data: %s", apiResponse.Accounts)
+	fmt.Printf("apiResponse.AccountDataList: %s", apiResponse.AccountDataList)
 
 	fmt.Println()
 
-	accounts := apiResponse.Accounts
+	accountDataList := apiResponse.AccountDataList
 	fmt.Println("\n")
-	fmt.Println("accounts => ", accounts)
+	fmt.Println("accountDataList => ", accountDataList)
 
-	for i, val := range accounts {
+	printAccounts(accountDataList)
+
+	var account model.Account
+	account.Id = "001"
+	account.Name = "Jana"
+	account.Country = "Singapore"
+	return account
+
+	return account
+}
+
+func printAccounts(accountDataList []model.AccountData) {
+	for i, val := range accountDataList {
 		fmt.Println("i =>", i)
 
 		fmt.Println("Attributes =>", *val.Attributes)
@@ -55,6 +75,4 @@ func Fetch() { //model.ApiResponse.Accounts {
 		fmt.Println("Type =>", val.Type)
 		fmt.Println("Version =>", *val.Version)
 	}
-
-	// return accounts
 }

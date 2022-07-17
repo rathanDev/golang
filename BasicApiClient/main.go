@@ -11,7 +11,6 @@ func main() {
 	fmt.Println()
 	fmt.Println()
 
-    operation.Fetch()
-	
-
+    account := operation.Fetch()
+	fmt.Println(account)
 }
