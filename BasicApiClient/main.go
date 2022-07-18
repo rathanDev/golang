@@ -6,6 +6,12 @@ import (
 )
 
 func main() {
+
+	operation.Create()
+
+}
+
+func tryFetch() {
 	fmt.Println("Fetch")
 	apiResponse := operation.Fetch()
 	fmt.Println(apiResponse)

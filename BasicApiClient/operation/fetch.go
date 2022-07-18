@@ -12,7 +12,7 @@ import (
 )
 
 func Fetch() model.ApiResponse {
-	url := config.GetAccountUrl()
+	url := config.AccountUrl()
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Print(err.Error())
@@ -28,7 +28,7 @@ func Fetch() model.ApiResponse {
 }
 
 func FetchMapped() []model.Account {
-	url := config.GetAccountUrl()
+	url := config.AccountUrl()
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Print(err.Error())
