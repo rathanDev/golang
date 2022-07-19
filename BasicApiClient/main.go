@@ -7,10 +7,11 @@ import (
 
 func main() {
 
-	tryFetch()
+	// tryFetch()
 
-	operation.Create()
+	// operation.Create()
 
+	operation.Delete()
 }
 
 func tryFetch() {
