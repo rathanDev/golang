@@ -8,12 +8,9 @@ import (
 )
 
 func main() {
-
-	testCreate()
-
-	// operation.Create()
-
-	// operation.Delete()
+	// testCreate()
+	testFetch()
+	testDelete()
 }
 
 func testCreate() {
@@ -40,12 +37,19 @@ func testCreate() {
 	operation.Create(accountData)
 }
 
-func tryFetch() {
+func testFetch() {
 	fmt.Println("Fetch")
 	apiResponse := operation.Fetch()
 	fmt.Println(apiResponse)
 
-	fmt.Println("\n\nFetchMapped")
+	fmt.Println("\n")
+	fmt.Println("FetchMapped")
 	accounts := operation.FetchMapped()
 	fmt.Println(accounts)
+}
+
+func testDelete() {
+	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
+	var version = int64(0)
+	operation.Delete(id, version)
 }

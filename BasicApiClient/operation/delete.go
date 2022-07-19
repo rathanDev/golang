@@ -3,15 +3,21 @@ package operation
 import (
 	"api-client/config"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 )
 
-func Delete() {
-	url := config.AccountUrl()
-	var deleteUrl = url + "/eb0bd6f5-c3f5-44b2-b677-acd23cdde514?version=0"
+func Delete(id string, version int64) {
 
 	client := &http.Client{}
+
+	url := config.AccountUrl()
+	const (
+		urlTemplate = `%s/%s?version=%d`
+	)
+	var deleteUrl = fmt.Sprintf(urlTemplate, url, id, version)
+	fmt.Println(deleteUrl)
+
+	// var deleteUrl := createDeleteUrl(id, version)
 
 	req, err := http.NewRequest("DELETE", deleteUrl, nil)
 	if err != nil {
@@ -24,15 +30,23 @@ func Delete() {
 		fmt.Println(err)
 		return
 	}
-	defer resp.Body.Close()
 
-	respBody, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
+	// printResponse(resp)
 	fmt.Println("response Status : ", resp.Status)
 	fmt.Println("response Headers : ", resp.Header)
-	fmt.Println("response body : ", respBody)
 }
+
+func createDeleteUrl(id string, version int64) string {
+	url := config.AccountUrl()
+	const (
+		urlTemplate = `%s/%s?version=%s`
+	)
+	var deleteUrl = fmt.Sprintf(urlTemplate, url, id, version)
+	fmt.Println(deleteUrl)
+	return deleteUrl
+}
+
+// func printResponse(resp *http.Response) {
+// 	fmt.Println("response Status : ", resp.Status)
+// 	fmt.Println("response Headers : ", resp.Header)
+// }
