@@ -2,6 +2,7 @@ package operation
 
 import (
 	"api-client/config"
+	"api-client/util"
 	"fmt"
 	"net/http"
 )
@@ -31,9 +32,7 @@ func Delete(id string, version int64) {
 		return
 	}
 
-	// printResponse(resp)
-	fmt.Println("response Status : ", resp.Status)
-	fmt.Println("response Headers : ", resp.Header)
+	util.PrintHttpResponse(resp)
 }
 
 func createDeleteUrl(id string, version int64) string {
@@ -45,8 +44,3 @@ func createDeleteUrl(id string, version int64) string {
 	fmt.Println(deleteUrl)
 	return deleteUrl
 }
-
-// func printResponse(resp *http.Response) {
-// 	fmt.Println("response Status : ", resp.Status)
-// 	fmt.Println("response Headers : ", resp.Header)
-// }

@@ -3,6 +3,7 @@ package operation
 import (
 	"api-client/config"
 	"api-client/model"
+	"api-client/util"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -20,7 +21,7 @@ func Create(accountData model.AccountData) {
 		log.Fatal(err)
 	}
 
-	printResponse(resp)
+	util.PrintHttpResponse(resp)
 }
 
 func createPayload(accountData model.AccountData) []byte {
@@ -35,11 +36,4 @@ func createPayload(accountData model.AccountData) []byte {
 	var jsonPayload = fmt.Sprintf(jsonTemplate, a)
 	var payload = []byte(jsonPayload)
 	return payload
-}
-
-func printResponse(resp *http.Response) {
-	fmt.Println("response:", resp)
-	fmt.Println("response:", resp)
-	fmt.Println("response Status:", resp.Status)
-	fmt.Println("response Headers:", resp.Header)
 }

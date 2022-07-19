@@ -8,17 +8,18 @@ import (
 )
 
 func main() {
-	// testCreate()
+	testCreate()
 	testFetch()
 	testDelete()
 }
 
 func testCreate() {
+	fmt.Println("Create")
 	var accountData model.AccountData
 	accountData.ID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
 	accountData.OrganisationID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde616"
 	accountData.Type = "accounts"
-	accountData.Version = util.CreateNumberPointer(1)
+	accountData.Version = util.CreateNumberPointer(0)
 
 	var accountAttr model.AccountAttributes
 	accountAttr.AccountClassification = util.CreateStringPointer("Personal")
@@ -35,6 +36,7 @@ func testCreate() {
 	accountData.Attributes = &accountAttr
 
 	operation.Create(accountData)
+	fmt.Println("\n\n")
 }
 
 func testFetch() {
@@ -46,10 +48,13 @@ func testFetch() {
 	fmt.Println("FetchMapped")
 	accounts := operation.FetchMapped()
 	fmt.Println(accounts)
+	fmt.Println("\n\n")
 }
 
 func testDelete() {
+	fmt.Println("Delete")
 	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
 	var version = int64(0)
 	operation.Delete(id, version)
+	fmt.Println("\n\n")
 }
