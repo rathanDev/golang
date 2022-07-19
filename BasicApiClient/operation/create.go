@@ -14,14 +14,14 @@ func Create() {
 	url := config.AccountUrl()
 
 	var accountData model.AccountData
-	accountData.ID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde512"
-	accountData.OrganisationID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde612"
+	accountData.ID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde513"
+	accountData.OrganisationID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde613"
 	accountData.Type = "accounts"
 
 	var accountAttr model.AccountAttributes
 	accountAttr.AccountClassification = createStringPointer("Personal")
 	accountAttr.AccountMatchingOptOut = createBooleanPointer(false)
-	accountAttr.AccountNumber = "1001"
+	accountAttr.AccountNumber = "1003"
 	accountAttr.AlternativeNames = []string{"Jana", "Rathan"}
 	accountAttr.BankID = "400300"
 	accountAttr.BankIDCode = "GBDSC"

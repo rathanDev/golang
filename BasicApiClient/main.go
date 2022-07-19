@@ -7,6 +7,8 @@ import (
 
 func main() {
 
+	tryFetch()
+
 	operation.Create()
 
 }
