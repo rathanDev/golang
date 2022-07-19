@@ -12,13 +12,14 @@ func Create() {
 	url := config.AccountUrl()
 
 	var accountType = "accounts"
-	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde509"
-	var orgId = "eb0bd6f5-c3f5-44b2-b677-acd23cdde609"
+	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde511"
+	var orgId = "eb0bd6f5-c3f5-44b2-b677-acd23cdde611"
 	var country = "SG"
 	var baseCurrency = "SGD"
 	var bankId = "400300"
 	var bankIdCode = "GBDSC"
 	var bic = "NWBKGB22"
+	// var name []string = []string{"Jana", "Param"}
 
 	var jsonStr = createPayload(accountType, id, orgId, country, baseCurrency, bankId, bankIdCode, bic)
 	var jsonPayload = []byte(jsonStr)
@@ -46,9 +47,7 @@ func createPayload(accountType string, id string, orgId string, country string, 
 				"bank_id": "%s",
 				"bank_id_code": "%s",
 				"bic": "%s",
-				"name": [
-				  "Janarthan"
-				],
+				"name": ["Janarthan Paraman"],
 				"alternative_names": [
 				  "Jana"
 				],
@@ -62,7 +61,7 @@ func createPayload(accountType string, id string, orgId string, country string, 
 		`
 	)
 	var jsonStr = fmt.Sprintf(jsonTemplate, accountType, id, orgId, country, baseCurrency, bankId, bankIdCode, bic)
-	// fmt.Println(jsonStr)
+	fmt.Println(jsonStr)
 	return jsonStr
 }
 
