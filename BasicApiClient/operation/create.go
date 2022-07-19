@@ -37,18 +37,6 @@ func createPayload(accountData model.AccountData) []byte {
 	return payload
 }
 
-func CreateBooleanPointer(x bool) *bool {
-	return &x
-}
-
-func CreateStringPointer(x string) *string {
-	return &x
-}
-
-func CreateNumberPointer(x int64) *int64 {
-	return &x
-}
-
 func printResponse(resp *http.Response) {
 	fmt.Println("response:", resp)
 	fmt.Println("response:", resp)
