@@ -2,7 +2,9 @@ package operation
 
 import (
 	"api-client/config"
+	"api-client/model"
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -11,20 +13,28 @@ import (
 func Create() {
 	url := config.AccountUrl()
 
-	var accountType = "accounts"
-	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde511"
-	var orgId = "eb0bd6f5-c3f5-44b2-b677-acd23cdde611"
-	var country = "SG"
-	var baseCurrency = "SGD"
-	var bankId = "400300"
-	var bankIdCode = "GBDSC"
-	var bic = "NWBKGB22"
-	// var name []string = []string{"Jana", "Param"}
+	var accountData model.AccountData
+	accountData.ID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde512"
+	accountData.OrganisationID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde612"
+	accountData.Type = "accounts"
 
-	var jsonStr = createPayload(accountType, id, orgId, country, baseCurrency, bankId, bankIdCode, bic)
-	var jsonPayload = []byte(jsonStr)
+	var accountAttr model.AccountAttributes
+	accountAttr.AccountClassification = createStringPointer("Personal")
+	accountAttr.AccountMatchingOptOut = createBooleanPointer(false)
+	accountAttr.AccountNumber = "1001"
+	accountAttr.AlternativeNames = []string{"Jana", "Rathan"}
+	accountAttr.BankID = "400300"
+	accountAttr.BankIDCode = "GBDSC"
+	accountAttr.BaseCurrency = "SGD"
+	accountAttr.Bic = "NWBKGB22"
+	accountAttr.Country = createStringPointer("SG")
+	accountAttr.Name = []string{"Jana", "Param"}
 
-	resp, err := http.Post(url, "application/json", bytes.NewBuffer(jsonPayload))
+	accountData.Attributes = &accountAttr
+
+	payload := createPayloadV(accountData)
+
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,35 +44,26 @@ func Create() {
 	fmt.Println("response Headers:", resp.Header)
 }
 
-func createPayload(accountType string, id string, orgId string, country string, baseCurrency string, bankId string, bankIdCode string, bic string) string {
+func createPayloadV(accountData model.AccountData) []byte {
+	a, _ := json.Marshal(accountData)
+	fmt.Println(string(a))
 	const (
 		jsonTemplate = `{
-			"data": {
-			  "type": "%s",
-			  "id": "%s",
-			  "organisation_id": "%s",
-			  "attributes": {
-				"country": "%s",
-				"base_currency": "%s",
-				"bank_id": "%s",
-				"bank_id_code": "%s",
-				"bic": "%s",
-				"name": ["Janarthan Paraman"],
-				"alternative_names": [
-				  "Jana"
-				],
-				"account_classification": "Personal",
-				"joint_account": false,
-				"account_matching_opt_out": false,
-				"secondary_identification": "A1B2C3D4"
-			  }
-			}
+			"data": %s
 		  }
 		`
 	)
-	var jsonStr = fmt.Sprintf(jsonTemplate, accountType, id, orgId, country, baseCurrency, bankId, bankIdCode, bic)
-	fmt.Println(jsonStr)
-	return jsonStr
+	var jsonPayload = fmt.Sprintf(jsonTemplate, a)
+	var payload = []byte(jsonPayload)
+	return payload
+}
+
+func createBooleanPointer(x bool) *bool {
+	return &x
+}
+
+func createStringPointer(x string) *string {
+	return &x
 }
 
 func createNumberPointer(x int64) *int64 {
