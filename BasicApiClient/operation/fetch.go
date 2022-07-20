@@ -1,8 +1,8 @@
 package operation
 
 import (
-	"api-client/config"
-	"api-client/model"
+	"form-app/config"
+	"form-app/model"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"

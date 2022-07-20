@@ -1,9 +1,9 @@
 package main
 
 import (
-	"api-client/model"
-	"api-client/operation"
-	"api-client/util"
+	"form-app/model"
+	"form-app/operation"
+	"form-app/util"
 	"log"
 )
 
