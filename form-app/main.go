@@ -14,7 +14,7 @@ func main() {
 }
 
 func testCreate() {
-	log.Println("Create")
+	log.Println("Test Create")
 	var accountData model.AccountData
 	accountData.ID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
 	accountData.OrganisationID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde616"
@@ -40,7 +40,7 @@ func testCreate() {
 }
 
 func testFetch() {
-	log.Println("Fetch")
+	log.Println("Test Fetch")
 	apiResponse := operation.Fetch()
 	log.Println(apiResponse)
 
@@ -52,7 +52,7 @@ func testFetch() {
 }
 
 func testDelete() {
-	log.Println("Delete")
+	log.Println("Test Delete")
 	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
 	var version = int64(0)
 	operation.Delete(id, version)

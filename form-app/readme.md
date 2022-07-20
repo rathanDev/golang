@@ -10,4 +10,6 @@ docker build -t form-app .
 docker images 
 docker run -p 8081:8080 form-app 
 
+docker run form-app
+
 
