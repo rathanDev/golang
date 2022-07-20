@@ -6,3 +6,6 @@ we keep 2 classes
 one to contain database entity 
 other to return in API
 
+docker build -t formapp-dev .
+
+

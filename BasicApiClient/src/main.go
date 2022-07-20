@@ -4,7 +4,7 @@ import (
 	"api-client/model"
 	"api-client/operation"
 	"api-client/util"
-	"fmt"
+	"log"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 }
 
 func testCreate() {
-	fmt.Println("Create")
+	log.Println("Create")
 	var accountData model.AccountData
 	accountData.ID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
 	accountData.OrganisationID = "eb0bd6f5-c3f5-44b2-b677-acd23cdde616"
@@ -36,25 +36,25 @@ func testCreate() {
 	accountData.Attributes = &accountAttr
 
 	operation.Create(accountData)
-	fmt.Println("\n\n")
+	log.Println("\n\n")
 }
 
 func testFetch() {
-	fmt.Println("Fetch")
+	log.Println("Fetch")
 	apiResponse := operation.Fetch()
-	fmt.Println(apiResponse)
+	log.Println(apiResponse)
 
-	fmt.Println("\n")
-	fmt.Println("FetchMapped")
+	log.Println("\n")
+	log.Println("FetchMapped")
 	accounts := operation.FetchMapped()
-	fmt.Println(accounts)
-	fmt.Println("\n\n")
+	log.Println(accounts)
+	log.Println("\n\n")
 }
 
 func testDelete() {
-	fmt.Println("Delete")
+	log.Println("Delete")
 	var id = "eb0bd6f5-c3f5-44b2-b677-acd23cdde516"
 	var version = int64(0)
 	operation.Delete(id, version)
-	fmt.Println("\n\n")
+	log.Println("\n\n")
 }

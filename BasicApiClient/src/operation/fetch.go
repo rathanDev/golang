@@ -70,12 +70,12 @@ func mapAccounts(accountDataList []model.AccountData) []model.Account {
 func printAccountDataList(accountDataList []model.AccountData) {
 	fmt.Println("Print AccountData List")
 	for i, val := range accountDataList {
-		fmt.Println("i =>", i)
+		log.Println("i =>", i)
 
-		fmt.Println("Attributes =>", *val.Attributes)
-		fmt.Println("ID =>", val.ID)
-		fmt.Println("OrganisationID =>", val.OrganisationID)
-		fmt.Println("Type =>", val.Type)
-		fmt.Println("Version =>", *val.Version)
+		log.Println("Attributes =>", *val.Attributes)
+		log.Println("ID =>", val.ID)
+		log.Println("OrganisationID =>", val.OrganisationID)
+		log.Println("Type =>", val.Type)
+		log.Println("Version =>", *val.Version)
 	}
 }

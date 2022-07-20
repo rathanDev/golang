@@ -4,6 +4,7 @@ import (
 	"api-client/config"
 	"api-client/util"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -16,19 +17,19 @@ func Delete(id string, version int64) {
 		urlTemplate = `%s/%s?version=%d`
 	)
 	var deleteUrl = fmt.Sprintf(urlTemplate, url, id, version)
-	fmt.Println(deleteUrl)
+	log.Println(deleteUrl)
 
 	// var deleteUrl := createDeleteUrl(id, version)
 
 	req, err := http.NewRequest("DELETE", deleteUrl, nil)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
 
@@ -41,6 +42,6 @@ func createDeleteUrl(id string, version int64) string {
 		urlTemplate = `%s/%s?version=%s`
 	)
 	var deleteUrl = fmt.Sprintf(urlTemplate, url, id, version)
-	fmt.Println(deleteUrl)
+	log.Println(deleteUrl)
 	return deleteUrl
 }

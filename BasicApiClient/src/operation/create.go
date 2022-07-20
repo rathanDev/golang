@@ -26,7 +26,7 @@ func Create(accountData model.AccountData) {
 
 func createPayload(accountData model.AccountData) []byte {
 	a, _ := json.Marshal(accountData)
-	fmt.Println(string(a))
+	log.Println(string(a))
 	const (
 		jsonTemplate = `{
 			"data": %s

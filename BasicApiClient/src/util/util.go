@@ -1,8 +1,8 @@
 package util
 
 import (
-	"fmt"
 	"net/http"
+	"log"
 )
 
 func CreateBooleanPointer(val bool) *bool {
@@ -18,7 +18,7 @@ func CreateNumberPointer(val int64) *int64 {
 }
 
 func PrintHttpResponse(resp *http.Response) {
-	fmt.Println("response:", resp)
-	fmt.Println("response Status : ", resp.Status)
-	fmt.Println("response Headers : ", resp.Header)
+	log.Println("response:", resp)
+	log.Println("response Status : ", resp.Status)
+	log.Println("response Headers : ", resp.Header)
 }
