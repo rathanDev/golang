@@ -35,7 +35,6 @@ var db *sql.DB
 
 func handleRegister(c *gin.Context) {
 	fmt.Println("Inside handleRegister")
-	// Parse request body
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -43,21 +42,18 @@ func handleRegister(c *gin.Context) {
 	}
 	fmt.Println("Req:", req);
 
-	// Check if NRIC is unique
 	if !isNRICUnique(req.NRIC) {
 		c.JSON(http.StatusConflict, gin.H{"error": "NRIC already exists"})
 		return
 	}
 	fmt.Println("NRIC Unique")
 
-	// Check if wallet address is already associated with another NRIC
 	if !isWalletUnique(req.WalletAddress) {
 		c.JSON(http.StatusConflict, gin.H{"error": "Wallet address already associated with another NRIC"})
 		return
 	}
 	fmt.Println("Wallet Unique")
 
-	// Generate a random receipt hash using crypto/rand
 	receiptHash := make([]byte, 32)
 	_, err := rand.Read(receiptHash)
 	if err != nil {
@@ -66,24 +62,31 @@ func handleRegister(c *gin.Context) {
 	}
 	receipt := hex.EncodeToString(receiptHash)
 
-	// Generate receipt using SHA256 hash of request body
-
-	// Insert record into database
-	// _, err := db.Exec("INSERT INTO registrations (nric, wallet_address, receipt) VALUES ($1, $2, $3)", req.NRIC, req.WalletAddress, receipt)
-	// if err != nil {
-	// 	c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-	// 	return
-	// }
-
-	// Return receipt in response
+	reg := Registration{Nric: req.NRIC, WalletAddress: req.WalletAddress}
+	// reg := Registration{Nric: "someNric", WalletAddress: req.WalletAddress}
+	addRegistration(reg)
+	
 	res := RegisterResponse{Receipt: receipt}
 	c.JSON(http.StatusOK, res)
 }
 
+func addRegistration(reg Registration) (int64, error) {
+	fmt.Println("AddRegistration", reg)
+    result, err := db.Exec("INSERT INTO registration (nric, wallet_address) VALUES (?, ?)", reg.Nric, reg.WalletAddress)
+    if err != nil {
+        return 0, fmt.Errorf("addReg: %v", err)
+    }
+    id, err := result.LastInsertId()
+    if err != nil {
+        return 0, fmt.Errorf("addReg: %v", err)
+    }
+    return id, nil
+}
+
 type Registration struct {
-    id   int    `json:"id"`
-    nric string `json:"nric"`
-    walletAddress string `json:"wallet_address"`
+    Id   int    `json:"id"`
+    Nric string `json:"nric"`
+    WalletAddress string `json:"wallet_address"`
 }
 
 func isNRICUnique(nric string) bool {
