@@ -106,9 +106,6 @@ type Registration struct {
 func isNRICUnique(nric string) bool {
 	var count int
 	fmt.Println("NRIC->", nric)
-	// err := db.QueryRow("SELECT COUNT(*) FROM registration WHERE nric = $1", nric).Scan(&count)
-
-	// var registration Registration
 	err := db.QueryRow("SELECT COUNT(*) FROM registration where nric = ?", nric).Scan(&count)
 	if err != nil {
 		fmt.Println("Err at finding nric")
@@ -121,10 +118,12 @@ func isNRICUnique(nric string) bool {
 func isWalletUnique(walletAddress string) bool {
 	var count int
 	fmt.Println("WalletAddress:", walletAddress)
-	err := db.QueryRow("SELECT COUNT(*) FROM registration WHERE wallet_address = $1", walletAddress).Scan(&count)
+	err := db.QueryRow("SELECT COUNT(*) FROM registration where wallet_address = ?", walletAddress).Scan(&count)
 	if err != nil {
+		fmt.Println("Err at finding walletAddress")
 		log.Fatal(err)
 	}
+	fmt.Println("WalletAddress Count:", count)
 	return count == 0
 }
 
