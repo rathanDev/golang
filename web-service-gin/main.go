@@ -31,6 +31,12 @@ type DatabaseConfig struct {
 	Name     string
 }
 
+type Registration struct {
+    Id   int    `json:"id"`
+    Nric string `json:"nric"`
+    WalletAddress string `json:"wallet_address"`
+}
+
 var db *sql.DB
 
 func handleRegister(c *gin.Context) {
@@ -81,12 +87,6 @@ func addRegistration(reg Registration) (int64, error) {
         return 0, fmt.Errorf("addReg: %v", err)
     }
     return id, nil
-}
-
-type Registration struct {
-    Id   int    `json:"id"`
-    Nric string `json:"nric"`
-    WalletAddress string `json:"wallet_address"`
 }
 
 func isNRICUnique(nric string) bool {
