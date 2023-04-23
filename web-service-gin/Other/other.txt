@@ -1,0 +1,7 @@
+https://go.dev/doc/tutorial/web-service-gin
+
+go mod init example/web-service-gin
+
+create file main.go 
+
+go get .

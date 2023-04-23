@@ -6,10 +6,10 @@ WORKDIR "$APP_HOME"
 
 COPY . .
 
-RUN apt-get update && apt-get install -y 
-
 RUN go get -d -v ./...
 
 RUN go install -v ./...
+
+EXPOSE 8080
 
 CMD ["form-app"]
