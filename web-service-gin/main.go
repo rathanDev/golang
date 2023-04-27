@@ -43,9 +43,6 @@ var db *sql.DB
 func handleRegister(c *gin.Context) {
 	fmt.Println("Inside handleRegister")
 
-	// c.Header("Access-Control-Allow-Origin", "http://localhost:3000/")
-    // c.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
-
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -119,7 +116,7 @@ func isWalletUnique(walletAddress string) bool {
 }
 
 func initDb() {
-	connection, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3306)/testdb")
+	connection, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3307)/testdb")
 	if err != nil {
 		panic(err.Error())
 	}

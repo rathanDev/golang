@@ -28,3 +28,6 @@ RUN go mod download golang.org/x/text
 docker-compose down --rmi all -v
 
 go mod tidy 
+go get -t .
+
+go mod tidy -e

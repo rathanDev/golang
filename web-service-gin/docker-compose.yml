@@ -12,10 +12,10 @@ services:
       - default
     restart: always
     ports:
-    - "3306:3306"
+    - "3307:3307"
     environment:
       MYSQL_DATABASE: testdb
-      MYSQL_USER: root
+      MYSQL_USER: mysql_user
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
