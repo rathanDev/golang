@@ -15,6 +15,16 @@ PS C:\VProjects\golang\web-service-gin> go run .
 go run .
 
 
+docker-compose build 
+
+failed to solve: failed to register layer: error creating overlay mount to 
+/var/lib/docker/overlay2/e0222fe9324d52742a868f6ad29afe58e16ea8618aaeb1e28bf5ced7e5f841e7/merged: too many levels of symbolic links
+
+RUN rm -rf /var/lib/docker/image/
 
 
+RUN go mod download golang.org/x/text
 
+docker-compose down --rmi all -v
+
+go mod tidy 
