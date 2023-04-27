@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -32,21 +33,25 @@ type DatabaseConfig struct {
 }
 
 type Registration struct {
-    Id   int    `json:"id"`
-    Nric string `json:"nric"`
-    WalletAddress string `json:"wallet_address"`
+	Id            int    `json:"id"`
+	Nric          string `json:"nric"`
+	WalletAddress string `json:"wallet_address"`
 }
 
 var db *sql.DB
 
 func handleRegister(c *gin.Context) {
 	fmt.Println("Inside handleRegister")
+
+	// c.Header("Access-Control-Allow-Origin", "http://localhost:3000/")
+    // c.Header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
+
 	var req RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	fmt.Println("Req:", req);
+	fmt.Println("Req:", req)
 
 	if !isNRICUnique(req.NRIC) {
 		c.JSON(http.StatusConflict, gin.H{"error": "NRIC already exists"})
@@ -71,22 +76,22 @@ func handleRegister(c *gin.Context) {
 	reg := Registration{Nric: req.NRIC, WalletAddress: req.WalletAddress}
 	// reg := Registration{Nric: "someNric", WalletAddress: req.WalletAddress}
 	addRegistration(reg)
-	
+
 	res := RegisterResponse{Receipt: receipt}
 	c.JSON(http.StatusOK, res)
 }
 
 func addRegistration(reg Registration) (int64, error) {
 	fmt.Println("AddRegistration", reg)
-    result, err := db.Exec("INSERT INTO registration (nric, wallet_address) VALUES (?, ?)", reg.Nric, reg.WalletAddress)
-    if err != nil {
-        return 0, fmt.Errorf("addReg: %v", err)
-    }
-    id, err := result.LastInsertId()
-    if err != nil {
-        return 0, fmt.Errorf("addReg: %v", err)
-    }
-    return id, nil
+	result, err := db.Exec("INSERT INTO registration (nric, wallet_address) VALUES (?, ?)", reg.Nric, reg.WalletAddress)
+	if err != nil {
+		return 0, fmt.Errorf("addReg: %v", err)
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, fmt.Errorf("addReg: %v", err)
+	}
+	return id, nil
 }
 
 func isNRICUnique(nric string) bool {
@@ -125,6 +130,15 @@ func initDb() {
 func main() {
 	initDb()
 	router := gin.Default()
+
+	config := cors.DefaultConfig()
+    config.AllowAllOrigins = true
+    config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
+    config.AllowHeaders = []string{"Authorization", "Content-Type"}
+
+    router.Use(cors.New(config))
+
 	router.POST("/register", handleRegister)
-	router.Run("localhost:8080")
+
+	router.Run(":8080")
 }

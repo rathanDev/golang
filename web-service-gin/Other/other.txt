@@ -5,8 +5,16 @@ go mod init example/web-service-gin
 create file main.go 
 
 go get .
-
+go run .
 
 drop table registration;
 CREATE TABLE registration(id INT PRIMARY KEY AUTO_INCREMENT, nric VARCHAR(255), wallet_address VARCHAR(255));
 select * from registration;
+
+PS C:\VProjects\golang\web-service-gin> go run .
+go run .
+
+
+
+
+
