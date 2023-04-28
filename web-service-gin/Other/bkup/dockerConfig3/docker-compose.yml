@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  db:
+    build: ./mysql
+    restart: always
+    ports:
+      - "3306:3306"
+
+  api:
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_USER: mysql_user
+      DB_PASSWORD: root
+      DB_NAME: testdb
