@@ -116,7 +116,7 @@ func isWalletUnique(walletAddress string) bool {
 }
 
 func initDb() {
-	connection, err := sql.Open("mysql", "root:root@tcp(127.0.0.1:3307)/testdb")
+	connection, err := sql.Open("mysql", "mysql_user:root@tcp(127.0.0.1:3306)/testdb")
 	if err != nil {
 		panic(err.Error())
 	}
