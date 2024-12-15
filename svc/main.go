@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"svc/handler"
-
 	"github.com/gin-gonic/gin"
+	"svc/handler"
 )
 
 func main() {
@@ -13,6 +12,7 @@ func main() {
 	route := gin.Default()
 
 	route.GET("/users", handler.GetUsers)
+	route.POST("/signUp", handler.SignUp)
 
 	route.Run(":8080")
 }

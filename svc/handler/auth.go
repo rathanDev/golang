@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"svc/model"
 
@@ -20,14 +21,17 @@ func GetUsers(c *gin.Context) {
 }
 
 func SignUp(c *gin.Context) {
+	log.Println("SignUp")
 	var newUser model.User
 	err := c.ShouldBindJSON(&newUser)
 	if err != nil {
+		log.Println("Error:", err)
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "Some err",
 		})
 		return
 	}
+	log.Println("NewUser", newUser)
 	users = append(users, newUser)
 	fmt.Println("users", users)
 
