@@ -5,12 +5,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"svc/constant"
 	"svc/model"
 )
 
 // var usersCredentials = []model.UserCredential{}
 
-var users = []model.User{{ID: "001", Name: "Jana", Username: "jana", Password: "Pwd1"}}
+var users = []model.User{{ID: "001", Name: "Jana", Username: "jana", Password: "Pwd1", Role: constant.ADMIN}}
 
 func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
@@ -28,6 +29,14 @@ func SignUp(c *gin.Context) {
 		return
 	}
 	log.Println("NewUser", newUser)
+
+	if newUser.Role == constant.ADMIN {
+		c.JSON(http.StatusConflict, gin.H{
+			"error": "Incompatible role",
+		})
+		return
+	}
+
 	users = append(users, newUser)
 	fmt.Println("users", users)
 
@@ -69,7 +78,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	tokenStr, err := GenerateJwt(loggedInUser.ID, loggedInUser.Username)
+	tokenStr, err := GenerateJwt(loggedInUser)
 	if err != nil {
 		c.JSON(http.StatusConflict, gin.H{
 			"error": "Unable to generate jwt",

@@ -12,12 +12,13 @@ import (
 var appName = "APP_NAME"
 var jwtSecretKey = []byte(config.GetConfig().Api.Key)
 
-func GenerateJwt(userId string, username string) (string, error) {
-	log.Println("GenerateJwt ", userId, username)
+func GenerateJwt(user model.User) (string, error) {
+	log.Println("GenerateJwt ", user)
 	expirationTime := time.Now().Add(24 * time.Hour) // expires in 24 hours
 	claims := &model.Claims{
-		UserId:   userId,
-		Username: username,
+		UserId:   user.ID,
+		Username: user.Username,
+		UserRole: user.Role,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 			Issuer:    appName,
