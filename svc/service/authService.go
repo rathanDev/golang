@@ -39,7 +39,6 @@ func SignUp(c *gin.Context) {
 func Login(c *gin.Context) {
 	var userCred model.UserCredential
 	log.Println("Login")
-	// In a real application, authenticate the user (this is just an example)
 	//  username := c.PostForm("username")
 	//  password := c.PostForm("password")
 	err := c.BindJSON(&userCred)
