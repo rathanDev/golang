@@ -10,12 +10,7 @@ import (
 
 // var usersCredentials = []model.UserCredential{}
 
-var users = []model.User{}
-
-// {
-// 	{ID: 1, Name: "Jana"},
-// 	{ID: 2, Name: "Rathan"},
-// }
+var users = []model.User{{ID: "001", Name: "Jana", Username: "jana", Password: "Pwd1"}}
 
 func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
@@ -84,6 +79,6 @@ func Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{
-		"token":   tokenStr,
+		"token": tokenStr,
 	})
 }

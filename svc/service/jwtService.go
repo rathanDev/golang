@@ -3,24 +3,18 @@ package service
 import (
 	"log"
 	"time"
-
 	"github.com/dgrijalva/jwt-go"
+	"svc/model"
 )
 
 // move to config
 var appName = "APP_NAME"
 var jwtSecretKey = []byte("secret-key")
 
-type Claims struct {
-	UserId   string `json:"userId"`
-	Username string `json:"username"`
-	jwt.StandardClaims
-}
-
 func GenerateJwt(userId string, username string) (string, error) {
 	log.Println("GenerateJwt ", userId, username)
 	expirationTime := time.Now().Add(24 * time.Hour) // expires in 24 hours
-	claims := &Claims{
+	claims := &model.Claims{
 		UserId:   userId,
 		Username: username,
 		StandardClaims: jwt.StandardClaims{
@@ -40,8 +34,8 @@ func GenerateJwt(userId string, username string) (string, error) {
 	return signedToken, nil
 }
 
-func ValidateJwt(tokenString string) (*Claims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+func ValidateJwt(tokenString string) (*model.Claims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &model.Claims{}, func(token *jwt.Token) (interface{}, error) {
 		return jwtSecretKey, nil
 	})
 
@@ -50,7 +44,7 @@ func ValidateJwt(tokenString string) (*Claims, error) {
 		return nil, err
 	}
 
-	claims, ok := token.Claims.(*Claims)
+	claims, ok := token.Claims.(*model.Claims)
 	if !ok || !token.Valid {
 		return nil, err
 	}
