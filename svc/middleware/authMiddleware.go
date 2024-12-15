@@ -6,14 +6,14 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"svc/config"
 	"svc/model"
 )
 
-// move to config
-var appName = "APP_NAME"
-var jwtSecretKey = []byte("secret-key")
+var jwtSecretKey = []byte(config.GetConfig().Api.Key)
 
 func TokenAuthMiddleware() gin.HandlerFunc {
+	log.Println("TokenAuthMiddleware")
 	return func(c *gin.Context) {
 		tokenString := c.GetHeader("Authorization")
 		log.Println("tokenStr", tokenString)

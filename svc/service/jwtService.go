@@ -1,15 +1,16 @@
 package service
 
 import (
-	"log"
-	"time"
 	"github.com/dgrijalva/jwt-go"
+	"log"
+	"svc/config"
 	"svc/model"
+	"time"
 )
 
 // move to config
 var appName = "APP_NAME"
-var jwtSecretKey = []byte("secret-key")
+var jwtSecretKey = []byte(config.GetConfig().Api.Key)
 
 func GenerateJwt(userId string, username string) (string, error) {
 	log.Println("GenerateJwt ", userId, username)

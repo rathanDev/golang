@@ -7,3 +7,4 @@ go get -u github.com/gin-gonic/gin
 
 go get github.com/dgrijalva/jwt-go
 
+go get gopkg.in/yaml.v3

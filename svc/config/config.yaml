@@ -1,0 +1,13 @@
+server:
+  port: "8080"
+  host: "localhost"
+
+database:
+  user: "dbuser"
+  password: "dbpassword"
+  host: "127.0.0.1"
+  port: 5432
+  name: "mydatabase"
+
+api:
+  key: "secret-key"
