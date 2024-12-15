@@ -11,10 +11,11 @@ import (
 
 // var usersCredentials = []model.UserCredential{}
 
-var users = []model.User{
-	{ID: 1, Name: "Jana"},
-	{ID: 2, Name: "Rathan"},
-}
+var users = []model.User{}
+// {
+// 	{ID: 1, Name: "Jana"},
+// 	{ID: 2, Name: "Rathan"},
+// }
 
 func GetUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, users)
