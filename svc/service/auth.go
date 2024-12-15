@@ -57,17 +57,33 @@ func Login(c *gin.Context) {
 	}
 	log.Println("Login", userCred)
 
+	var loggedInUser model.User
+
 	for _, user := range users {
 		if user.Username == userCred.Username && user.Password == userCred.Password {
 			log.Println("User found", user)
-			c.JSON(http.StatusCreated, gin.H{
-				"message": "LoggedIn",
-			})
-			return
+			loggedInUser = user
+			break
 		}
 	}
-	log.Println("Login failed")
-	c.JSON(http.StatusConflict, gin.H{
-		"error": "Login failed",
+
+	if loggedInUser == (model.User{}) {
+		log.Println("Login failed")
+		c.JSON(http.StatusConflict, gin.H{
+			"error": "Login failed",
+		})
+		return
+	}
+
+	tokenStr, err := GenerateJwt(loggedInUser.ID, loggedInUser.Username)
+	if err != nil {
+		c.JSON(http.StatusConflict, gin.H{
+			"error": "Unable to generate jwt",
+		})
+		return
+	}
+
+	c.JSON(http.StatusCreated, gin.H{
+		"token":   tokenStr,
 	})
 }
